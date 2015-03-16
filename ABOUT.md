@@ -10,7 +10,13 @@
 
 ## 方案
 
-### 150304 文档维护流程
+### 150317 文档维护流程
+
+大妈实验:
+
+- [collaborate · OpenMindClub/OMOOC.py Wiki](https://github.com/OpenMindClub/OMOOC.py/wiki/collaborate)
+    + [gitbook_double_push · OpenMindClub/OMOOC.py Wiki](https://github.com/OpenMindClub/OMOOC.py/wiki/gitbook_double_push)
+- 不可用
 
 ### TODO
 
