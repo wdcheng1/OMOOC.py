@@ -16,7 +16,7 @@
 
 - [collaborate · OpenMindClub/OMOOC.py Wiki](https://github.com/OpenMindClub/OMOOC.py/wiki/collaborate)
     + [gitbook_double_push · OpenMindClub/OMOOC.py Wiki](https://github.com/OpenMindClub/OMOOC.py/wiki/gitbook_double_push)
-- 不可用...原因,是也乎...
+- 不可用...原因,是也乎.......
 
 ### TODO
 
