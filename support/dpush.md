@@ -145,12 +145,51 @@ To https://[用户名]:[口令]@git.gitbook.com/[帐号]/[图书名].git
 ```
 ...
 [remote "origin"]
-    url = git@github.com:OpenMindClub/[图书名].git
     url = https://[用户名]:[口令]@git.gitbook.com/[帐号]/[图书名].git
+    url = git@github.com:OpenMindClub/[图书名].git
     fetch = +refs/heads/*:refs/remotes/origin/*
 ```
 
 再进行默认推送, 就发现,自动完成了两个仓库的分别 push:
 
+```
+$ git pu
+Counting objects: 8, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 2.00 KiB | 0 bytes/s, done.
+Total 4 (delta 2), reused 0 (delta 0)
+To https://[用户名]:[口令]@git.gitbook.com/[帐号]/[图书名].git
+   f27428a..0d06615  master -> master
+Counting objects: 7, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 2.00 KiB | 0 bytes/s, done.
+Total 4 (delta 2), reused 0 (delta 0)
+To git@github.com:OpenMindClub/[图书名].git
+   f27428a..0d06615  master -> master
+
+```
 
 
+
+## (￣▽￣)
+
+综上可得:
+
+- git 太任性,怎么来都可以
+- 多人协同更加任性, 得要约定好统一的原则
+    + 在当前情景中
+    + 就需要所有参与编辑同一图书的小伙伴,在本地配置中完全一致
+    + 以免引发冲突
+- 当然,也可以不那么任性:
+    + 使用 github 推荐的 P-R 协同方式
+    + github+gitbook 双仓库操作,只交给一位主持人进行
+    + 其它小伙伴,都通过 fork 图书的 github 仓库到私人空间,进行增补
+        * 感觉可以合并时
+        * 向主持人提交一个 `pull-request` 
+        * 由主持人判定,合并提交
+        * 再双推到 gitbook 平台
+    + 可是,问题来了,,,, `pull-request` 的礼节,不是那么简单的
+    + 参考: [Github 發 Pull Request & 貢獻流程速查](http://scm.zoomquiet.io/data/20131009223931/index.html)
+    + 即,任何时候使用 `-f` 都是一种野蛮行为,必须遭到所有人的 BS !
