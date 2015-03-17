@@ -50,19 +50,107 @@
 - 只能使用 https 协调交互
 - 只能使用 明文 帐号+口令 认证
 - 如果,图书发布 URI 是:
-    + `https://www.gitbook.com/book/[帐号]/omooc-py/details`
+    + `https://www.gitbook.com/book/[帐号]/[图书名]/details`
     + 则对应的仓库应该是:
-    + `https://git.gitbook.com/[帐号]/omooc-py.git`
+    + `https://git.gitbook.com/[帐号]/[图书名].git`
 
 技巧:
 
 - 和 svn/hg 等等版本管理仓库类似
 - git 仓库也支持在配置中明文保存口令,以免反复输入
 - 形如:
-    + `url = https://用户名:口令@git.gitbook.com/帐号/omooc-py.git`
+    + `url = https://用户名:口令@git.gitbook.com/帐号/[图书名].git`
 
 
 ### 操作上
+
+- 已经创建好 github 图书仓库, gitbook 图书实例
+- 并将 github 仓库 clone 到本地: `/path/2/[图书名]`
+- 则应该可以看到 `/path/2/[图书名]/.git/config` 有以下配置声明
+
+
+```
+[remote "origin"]
+    url = git@github.com:OpenMindClub/[图书名].git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+- 那么就可以手工增订为:
+
+```
+[remote "book"]
+    url = https://git.gitbook.com/[帐号]/[图书名].git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "hub"]
+    url = git@github.com:OpenMindClub/[图书名].git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "origin"]
+    url = git@github.com:OpenMindClub/[图书名].git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+- 回到仓库根目录,测试:
+
+```
+$ git remote -v
+book    https://git.gitbook.com/[帐号]/[图书名].git (push)
+book    https://git.gitbook.com/[帐号]/[图书名].git (fetch)
+hub git@github.com:OpenMindClub/[图书名].git (push)
+hub git@github.com:OpenMindClub/[图书名].git (fetch)
+origin  git@github.com:OpenMindClub/[图书名].git (push)
+```
+
+
+- 配置明文口令,以便不用输入
+
+```
+[remote "book"]
+    url = https://[用户名]:[口令]@git.gitbook.com/[帐号]/[图书名].git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+
+- `注意:` 隐藏约定 ~ `口令中不能包含 @` ,否则,你懂的...
+
+
+#### 手工双推
+
+那么,俺就可以用两次 git 操作,完成两个仓库的内容发送了:
+
+```
+$ git pu hub
+Counting objects: 18, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (16/16), 3.29 KiB | 0 bytes/s, done.
+Total 16 (delta 3), reused 0 (delta 0)
+To git@github.com:OpenMindClub/[图书名].git
+   8c3c8b6..f27428a  master -> master
+
+$ git pu book
+Counting objects: 20, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (16/16), 3.29 KiB | 0 bytes/s, done.
+Total 16 (delta 3), reused 0 (delta 0)
+To https://[用户名]:[口令]@git.gitbook.com/[帐号]/[图书名].git
+   8c3c8b6..f27428a  master -> master
+
+```
+
+#### 自动双推
+
+经过文档研究,发现,其实, git 可以任性的识别仓库配置中,多个 uri 的,那么增强配置为
+
+```
+...
+[remote "origin"]
+    url = git@github.com:OpenMindClub/[图书名].git
+    url = https://[用户名]:[口令]@git.gitbook.com/[帐号]/[图书名].git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+再进行默认推送, 就发现,自动完成了两个仓库的分别 push:
 
 
 
