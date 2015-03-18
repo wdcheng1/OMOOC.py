@@ -2,4 +2,12 @@
     "version": "15.3.16",
     "description": "OMOOC.py tutorial by learnning",
     "author": "OMOOC-support <omooc-support@googlegroups.com>",
+
+    "plugins": [
+        "disqus"
+    ],
+    "pluginsConfig": {
+        "shortName": ""
+    }
+
 }
