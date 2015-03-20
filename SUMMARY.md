@@ -12,6 +12,7 @@
     - [如何写公开信?](tools/how2letters4publish.md)
         - [什么是文案的风格化?](tools/what-is-wordstyle.md)
     - [如何用任务驱动?](tools/how4tasking.md)
+    - [如何用任务驱动?](tools/how4tasking.md)
 - [MOOC 环境](MOOC/README.md)
     - [163](MOOC/163.md)
     - [coursera](MOOC/coursera.md)
